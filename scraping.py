@@ -1,5 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
+from colorama import Fore
 import selenium.webdriver
 from time import sleep
 
@@ -18,19 +19,21 @@ class scraper:
 
         self.TABLE: WebElement = self.DRIVER.find_element(By.CLASS_NAME, "table-responsive")
 
-        self.USA: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[1]')
-        self.BRAZIL: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[2]')
-        self.UKRAINE: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[3]')
-        self.CHINA: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[6]')
-        self.TAIWAN: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[13]')
-        self.PHILLIPINES: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[25]')
-        self.RUSSIA: WebElement = self.TABLE.find_element(By.XPATH, '//*[@id="prices"]/div[4]/div[1]/table/tbody/tr[41]')
+        self.USA: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'U.S.')]")
+        self.BRAZIL: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Brazilian')]")
+        self.UKRAINE: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Ukrainian')]")
+        self.CHINA: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Chinese')]")
+        self.TAIWAN: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Taiwan')]")
+        self.PHILLIPINES: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Philippine')]")
+        self.RUSSIA: WebElement = self.TABLE.find_element(By.XPATH, "//tr[contains(., 'Russian')]")
         
         self.COUNTRIES: list[WebElement] = [self.USA, self.BRAZIL, self.UKRAINE, self.CHINA, self.TAIWAN, self.PHILLIPINES, self.RUSSIA]
         
         for _, country in enumerate(self.COUNTRIES):
-            print(country.text)
-       
+            self.CONVERTED_PRICE = country.find_element(By.CLASS_NAME, "table-prices-converted")
+            self.COUNTRY_NAME = country.find_element(By.CLASS_NAME, "price-line").text
+
+            print(Fore.GREEN + self.COUNTRY_NAME + " : " + Fore.LIGHTCYAN_EX + self.CONVERTED_PRICE.text)
 
 if __name__ == "__main__":
     SCRAPER: scraper = scraper()
