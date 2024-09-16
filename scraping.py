@@ -8,7 +8,7 @@ import requests
 
 
 class game_scraper:
-    def __init__(self, Game_Id) -> None:
+    def __init__(self, Game_Id: str) -> None:
         self.DRIVER = selenium.webdriver.Chrome()
         self.URL: str = f"https://steamdb.info/app/{Game_Id}/"
 
