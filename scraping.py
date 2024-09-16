@@ -1,7 +1,6 @@
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
-from colorama import Fore
 import selenium.webdriver
 from lxml import etree
 from time import sleep
@@ -9,9 +8,9 @@ import requests
 
 
 class game_scraper:
-    def __init__(self) -> None:
+    def __init__(self, Game_Id) -> None:
         self.DRIVER = selenium.webdriver.Chrome()
-        self.URL: str = "https://steamdb.info/app/1985810/"
+        self.URL: str = f"https://steamdb.info/app/{Game_Id}/"
 
         self.DRIVER.get(self.URL)
         self.DRIVER.maximize_window()
