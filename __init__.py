@@ -10,7 +10,8 @@ def convert_to_toman(additional_input: str , price: float):
     print(f"{additional_input} {converted_price}")
 
 def main() -> None:
-    GAME_SCRAPER: game_scraper = game_scraper(Game_Id="1985810")
+    Game_ID: str = str(input("Please enter your target game id : "))
+    GAME_SCRAPER: game_scraper = game_scraper(Game_Id=Game_ID)
     GAME_PRICE: list[tuple[str, float]] = GAME_SCRAPER.get_info()
 
     for _, game_price in enumerate(GAME_PRICE):
